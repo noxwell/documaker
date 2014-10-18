@@ -1,0 +1,17 @@
+body {
+	padding-top: 70px; 
+}
+
+#sidebar {
+	padding-top: 20px;
+}
+
+#title-edit-field {
+	width: 350px;
+	margin-top: 28px;
+	margin-bottom: 10px;
+}
+
+#title-edit-field button {
+	height: 34px;
+}
