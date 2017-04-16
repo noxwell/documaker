@@ -1,0 +1,23 @@
+{
+  "name": "documaker",
+  "version": "1.0.0",
+  "description": "LaTeX document editor",
+  "main": "backend/server.js",
+  "dependencies": {
+    "gulp": "^3.9.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noxwell/documaker.git"
+  },
+  "author": "Alexey Vetrov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noxwell/documaker/issues"
+  },
+  "homepage": "https://github.com/noxwell/documaker#readme"
+}

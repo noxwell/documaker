@@ -15,3 +15,7 @@ body {
 #title-edit-field button {
 	height: 34px;
 }
+
+.paragraph p {
+	text-indent: 50px;
+}

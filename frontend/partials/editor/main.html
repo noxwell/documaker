@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-md-12">
-    <h1 ng-hide="titleEdit" id="doc-title">Новый документ <a href="" ng-click="titleEditToggle()"><span class="glyphicon glyphicon-pencil"></span></a></h1>
+    <h1 ng-hide="titleEdit" id="doc-title">{{document.hierarchy.title}} <a href="" ng-click="titleEditToggle()"><span class="glyphicon glyphicon-pencil"></span></a></h1>
     <div id="title-edit-field" ng-show="titleEdit">
 	    <div class="input-group">
-	      <input type="text" class="form-control">
+	      <input type="text" class="form-control" ng-model="document.hierarchy.title">
 	      <span class="input-group-btn">
 	        <button class="btn btn-default" type="button" ng-click="titleEditToggle()">ОК</button>
 	      </span>
@@ -12,8 +12,16 @@
     <ul class="nav nav-tabs" role="tablist">
 	  <li class="active"><a href="#" id="editorTab">Редактор</a></li>
 	  <li><a href="#" id="settingsTab">Параметры</a></li>
-	  <li><a href="#" id="buildTab">Сборка документа</a></li>
+	  <li><a href="#" id="buildTab" ng-click="document.buildTex()">Сборка документа</a></li>
 	</ul>
   </div>
 </div>
-<div class="tabContent" ng-include src="currentTab.url" onload="tabOnLoad();"></div>
+<div class="tabContent" ng-show="currentTab == 0">
+	<div ng-include="'partials/editor/editor.html'"></div>
+</div>
+<div class="tabContent" ng-show="currentTab == 1">
+	<div ng-include="'partials/editor/settings.html'"></div>
+</div>
+<div class="tabContent" ng-show="currentTab == 2">
+	<div ng-include="'partials/editor/build.html'"></div>
+</div>

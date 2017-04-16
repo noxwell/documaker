@@ -1,0 +1,284 @@
+%********BEGIN PREAMBULE*********
+\documentclass[14pt,a4paper]{report}
+
+\usepackage[14pt]{extsizes}
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{pscyr}
+
+\usepackage{graphicx}
+\usepackage{amssymb,amsfonts,amsmath,amsthm}
+\usepackage{lscape}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{ulem}
+\usepackage{indentfirst}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\hypersetup{pdfborder = 0 0 0}
+\usepackage{tocloft}
+\usepackage{listings}
+\usepackage{float}
+
+% Ключевые слова
+\newcommand{\kwTitle}{%%report-title%%}
+\newcommand{\kwSubject}{%%report-subject%%}
+\newcommand{\kwPlace}{%%report-city%%}
+\newcommand{\kwYear}{%%report-year%%}
+\newcommand{\kwAuthorName}{%%report-author-name%%}
+\newcommand{\kwAuthorFaculty}{%%report-author-facility%%}
+\newcommand{\kwAuthorSpeciality}{%%report-author-speciality%%}
+\newcommand{\kwAuthorDepartment}{%%report-author-department%%}
+\newcommand{\kwAuthorInfo}{%%report-author-info%%}
+\newcommand{\kwTeacherName}{%%report-teacher-name%%}
+\newcommand{\kwTeacherInfo}{%%report-teacher-info%%}
+\newcommand{\kwReportNumber}{%%report-number%%}
+
+\lstset{
+	language=C++,                % choose the language of the code
+	basicstyle=\footnotesize\ttfamily,       % the size of the fonts that are 
+	%used for 
+	%the code
+	numbers=left,                   % where to put the line-numbers
+	numberstyle=\footnotesize,      % the size of the fonts that are used for 
+	%the line-numbers
+	stepnumber=1,                   % the step between two line-numbers. If it 
+	%is 1 each line will be numbered
+	numbersep=5pt,                  % how far the line-numbers are from the 
+	%code
+	backgroundcolor=\color{white},  % choose the background color. You must 
+	%add \usepackage{color}
+	showspaces=false,               % show spaces adding particular underscores
+	showstringspaces=false,         % underline spaces within strings
+	showtabs=false,                 % show tabs within strings adding 
+	%particular underscores
+	%frame=single,           % adds a frame around the code
+	tabsize=2,          % sets default tabsize to 2 spaces
+	captionpos=t,           % sets the caption-position to bottom
+	breaklines=true,        % sets automatic line breaking
+	breakatwhitespace=false,    % sets if automatic breaks should only happen 
+	%at whitespace
+	escapeinside={\%*}{*)},          % if you want to add a comment within 
+	numberbychapter=false,
+	%your code
+	%keywordstyle=\color{blue},
+	%stringstyle=\color{red},
+	%commentstyle=\color{green}
+}
+
+\renewcommand{\lstlistingname}{Исходный код}
+
+\usepackage[tableposition=top,justification=centering,singlelinecheck=false]{caption}
+\usepackage{subcaption}
+\DeclareCaptionLabelFormat{gostfigure}{Рисунок #2}
+\DeclareCaptionLabelFormat{gosttable}{Таблица #2}
+\DeclareCaptionLabelSeparator{gost}{~---~}
+\captionsetup{labelsep=gost}
+\captionsetup[figure]{labelformat=gostfigure}
+\captionsetup[table]{labelformat=gosttable}
+\renewcommand{\thefigure}{\arabic{figure}}
+\renewcommand{\thesubfigure}{\asbuk{subfigure}}
+
+\onehalfspacing % полуторный интервал
+\renewcommand{\rmdefault}{ftm} % Times New Roman
+\frenchspacing % не всталять дополнительный пробел в конце предложения
+%\spaceskip .45em plus .4em minus .0em
+
+\usepackage{geometry} % поля
+\geometry{left=3cm}
+\geometry{right=1cm}
+\geometry{top=2cm}
+\geometry{bottom=2cm}
+
+\usepackage{fancyhdr} % колонитулы
+\pagestyle{fancy}
+\fancyhf{}
+%\fancyhead[L]{\it\color[gray]{0.9}\kwTitle}
+\fancyfoot[R]{\thepage}
+\fancyheadoffset{0mm}
+\fancyfootoffset{0mm}
+%\setlength{\headheight}{17pt}
+%\setlength{\footheight}{17pt}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}
+{
+    \fancyhf{}
+    %\fancyhead[L]{\it\color[gray]{0.8}\kwTitle}
+    \fancyfoot[R]{\thepage}
+}
+
+% Заголовки
+
+\titleformat{\chapter}
+    {\bfseries}
+    {\thechapter.}
+    {1em}{}
+ 
+\titleformat{\section}
+    {\normalsize\bfseries}
+    {\thesection}
+    {1em}{}
+ 
+\titleformat{\subsection}
+    {\normalsize\bfseries}
+    {\thesubsection}
+    {1em}{}
+
+% Оглавление
+
+\newcommand{\prechapterheading}[1]{
+	\clearpage 
+    \begin{center}
+    \textbf{#1}
+    \end{center}
+}
+
+\makeatletter
+\newif\if@prechapterused
+\@prechapterusedfalse
+
+\newcommand{\l@prechapter}[2]{#1\cftdotfill{\cftdotsep}#2\par}
+\newcommand{\prechapter}[1]{
+	%\chapter{#1}    
+    \prechapterheading{#1}
+    \@prechapterusedtrue
+    \addcontentsline{toc}{chapter}{#1}
+}
+
+\let\oldchapter\chapter
+
+\renewcommand{\chapter}[1]
+{
+\if@prechapterused\vspace{-2em}\@prechapterusedfalse\fi
+\begingroup
+	\let\clearpage\relax
+	\let\cleardoublepage\relax
+	\oldchapter{#1}
+\endgroup
+}
+
+\def\@cline#1-#2\@nil{%
+  \omit
+  \@multicnt#1%
+  \advance\@multispan\m@ne
+  \ifnum\@multicnt=\@ne\@firstofone{&\omit}\fi
+  \@multicnt#2%
+  \advance\@multicnt-#1%
+  \advance\@multispan\@ne
+  \leaders\hrule\@height\arrayrulewidth\hfill
+  \cr
+  \noalign{\nobreak\vskip-\arrayrulewidth}}
+\makeatother
+
+\renewcommand{\cfttoctitlefont}{\hspace{0.38\textwidth} \bfseries}
+\renewcommand{\cftbeforetoctitleskip}{-1em}
+\renewcommand{\cftaftertoctitle}{\mbox{}\hfill \\ \mbox{}\hfill{\footnotesize 
+Стр.}\vspace{-2.5em}}
+\renewcommand{\cftchapfont}{\normalfont}
+\renewcommand{\cftchapdotsep}{\cftdotsep}
+\renewcommand{\cftchapleader}{\normalfont\cftdotfill{\cftchapdotsep}}
+\renewcommand{\cftchappagefont}{\normalfont}
+\renewcommand{\cftsecfont}{\hspace{31pt}}
+\renewcommand{\cftsubsecfont}{\hspace{11pt}}
+\renewcommand{\cftbeforechapskip}{1em}
+\renewcommand{\cftbeforesecskip}{1em}
+\renewcommand{\cftsecindent}{-0.5em}
+\renewcommand{\cftparskip}{-2mm}
+\renewcommand{\cftdotsep}{1}
+\setcounter{tocdepth}{1} % задать глубину оглавления — до section включительно
+
+% Настройка вертикальных и горизонтальных отступов в заголовках
+\titlespacing*{\chapter}{\parindent}{*4}{*0}
+\titlespacing*{\section}{\parindent}{*4}{*4}
+\titlespacing*{\subsection}{\parindent}{*0}{*0}
+
+\setlength{\parindent}{15mm} % абзацный отступ
+
+\usepackage{enumitem}
+\setlist{noitemsep}
+\setlist[enumerate]{leftmargin=2.5em}
+\setlist[itemize]{leftmargin=4em}
+
+\newcommand{\handtextplace}[2][50px]
+{
+	\parbox{#1}{
+	\begin{center}
+		{~}\\[-0.005\textheight]
+		\underline{\hspace{#1}}
+		\\[-0.005\textheight]\footnotesize{#2}
+	\end{center}
+	}
+}
+
+\newcommand{\textplace}[2]
+{
+	\parbox{\textwidth}{
+	\begin{center}
+		{~}\\[-0.005\textheight]
+		#1
+		\\[-0.005\textheight]\footnotesize{(#2)}
+	\end{center}
+	}
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\begin{small}
+
+\begin{center}
+\textbf{Министерство образования и науки Российской Федерации}\\
+Федеральное государственное бюджетное образовательное учреждение высшего 
+профессионального образования\\
+\textbf{<<НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ\\ТОМСКИЙ ПОЛИТЕХНИЧЕСКИЙ 
+УНИВЕРСИТЕТ>>}\\
+\end{center}
+\hrule
+
+\begin{flushleft}
+Институт \hspace{2em} \kwAuthorFaculty\\
+Направление подготовки (специальность) \hspace{2em} \kwAuthorSpeciality\\
+Кафедра \hspace{2em} \kwAuthorDepartment\\
+\end{flushleft}
+
+\vspace{5pt}
+
+\begin{center}
+\textbf{ОТЧЕТ}\\
+\textbf{по лабораторной работе №\kwReportNumber}\\
+\textplace{\textbf{\kwTitle}}{Название лабораторной работы}\\
+\end{center}
+по дисциплине <<\kwSubject>>
+
+\noindent\begin{tabularx}{\textwidth}{Xrr}
+\raggedright{Выполнил} \kwAuthorInfo & \handtextplace[100pt]{(подпись)} & 
+\kwAuthorName\\*[-30pt]
+~ & ~ &
+\handtextplace[30pt]{~}~\handtextplace[100pt]{(дата сдачи 
+отчета)}~20\handtextplace[20pt]{~}г.\\*[10pt]
+~ & Отчет принят: & ~\\*[-10pt]
+\kwTeacherInfo & \handtextplace[100pt]{(подпись)} & 
+\kwTeacherName\\*[-30pt]
+~ & ~ & 
+\handtextplace[30pt]{~}~\handtextplace[100pt]{(дата проверки 
+отчета)}~20\handtextplace[20pt]{~}г.\\*[-30pt]
+\end{tabularx}
+
+\vspace{75mm}
+
+\noindent{
+\kwPlace~\kwYear~г.
+}
+
+\end{small}
+
+\newpage
+%%chapters%%
+\end{document}

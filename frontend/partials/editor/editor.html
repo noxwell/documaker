@@ -1,28 +1,11 @@
 <div class="row">
   <div class="col-md-2" id="sidebar">
-  	Новый документ
-  	<div id="jstree-contatiner">
-	    <ul>
-		  <li>
-		  	Титульный лист
-		  </li>
-		  <li>
-		  	Оглавление
-		  </li>
-		  <li>
-		  	Введение
-		  </li>
-		  <li>
-		  	Приложения
-		  	<ul>
-		  		<li>Таблицы</li>
-		  		<li>Рисунки</li>
-		  	</ul>
-		  </li>
-		</ul>
-	</div>
+  	{{document.hierarchy.title}}
+  	<tree></tree>
   </div>
-  <div class="col-md-10">
-  	<h3>Титульный лист</h3>
+  <div class="col-md-10" id="contents">
+  	<h3 id="section-title">{{navigation.currentSection.title}}</h3>
+  	<div ng-include="'partials/editor/title-page.html'" ng-show="navigation.currentSection.type == 'title-page'"></div>
+  	<div ng-include="'partials/editor/chapter.html'" ng-show="navigation.currentSection.type == 'chapter'" class="section"></div>
   </div>
 </div>
